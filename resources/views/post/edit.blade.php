@@ -11,21 +11,22 @@
          <div class="container">
             <div class="row">
                <div class="col-md-12 padding_0">
-               <form action="{{route('post.store')}}" method="POST" enctype="multipart/form-data">
+               <form action="{{route('post.store')}}" method="PUT" enctype="multipart/form-data">
                 @csrf
                   <div class="mail_section">
                      <div class="">
                         <div class="form-group">
-                           <input type="text" class="email-bt" placeholder="Judul Artikel" name="judul">
+                           <input type="text" class="email-bt" placeholder="{{$post->judul}}" name="judul">
                         </div>
                         
                         <div class="form-group">
-                           <textarea class="form-control " placeholder="Massage" rows="5" id="content" name="artikel"></textarea>
+                           <textarea class="form-control "  rows="5" id="content" name="artikel">{!! $post->artikel !!}</textarea>
                             </div>
                                                 
-                        <div class="mb-3">
+                        <div class="mb-3 justify-center">
+                            <div class="mb-3"> <img src="{{asset('storage/gambar/'.$post->gambar)}}" alt="{{$post->gambar}}" id="image-preview"> </div>
                             <label for="image" class="text-light form-label">Pilih Gambar</label>
-                            <input type="file" class="form-control" id="gambar" name="gambar" >
+                            <input type="file" class="form-control" id="file-input" name="gambar" >
                         </div>
 
                         
@@ -52,5 +53,26 @@
     <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
     <script>
       CKEDITOR.replace( 'content' );
-   </script>
+   
+        // Ambil elemen input file
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+
+        // Tangani perubahan input file
+        fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0]; // Ambil file yang dipilih
+
+        // Validasi tipe file
+        if (file && file.type.includes('image')) {
+            const reader = new FileReader(); // Membuat objek FileReader
+
+            reader.onload = (e) => {
+            // Setelah file selesai dibaca
+            imagePreview.src = e.target.result; // Tampilkan gambar pada elemen img dengan mengatur atribut src
+            };
+
+            reader.readAsDataURL(file); // Baca file sebagai URL data
+        }
+        });
+    </script>
 @include('layouts.Footer.Footer')

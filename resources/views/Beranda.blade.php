@@ -17,11 +17,11 @@
                   <div class="about_taital_main">
                      <div class="about_taital">{{$post->judul}}</div>
                      <p class="about_text">{!! $post->artikel !!}</p>             
-                     <div class="read_bt"><a href="#">Read More</a></div>
+                     <div class="read_bt"><a href="{{route('post.edit', $post->id)}}">Read More</a></div>
                   </div>
                </div>
                <div class="col-md-6">
-                  <div class="about_img"><img src="images/about-img.png"></div>
+                  <div class="about_img"><img src="{{asset('storage/gambar/'.$post->gambar)}}" alt="{{$post->gambar}}"></div>
                </div>
             </div>
          </div>

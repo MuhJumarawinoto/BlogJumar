@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/post',[PostController::class,'create'])->name('post.create');
 Route::get('/',[PostController::class,'index'])->name('post.index');
 Route::post('/post',[PostController::class,'store'])->name('post.store');
+Route::get('/post/{id}/edit',[PostController::class, 'edit'])->name('post.edit');
