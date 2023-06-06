@@ -11,29 +11,32 @@
          <div class="container">
             <div class="row">
                <div class="col-md-12 padding_0">
-               <form action="{{route('post.store')}}" method="PUT" enctype="multipart/form-data">
+               <form action="{{route('post.update', $post->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                   <div class="mail_section">
                      <div class="">
                         <div class="form-group">
-                           <input type="text" class="email-bt" placeholder="{{$post->judul}}" name="judul">
+                           <input type="text" class="email-bt"  value="{{$post->judul}}" name="judul">
                         </div>
-                        
+                        @error('judul')
+                           {{$message}}
+                        @enderror
                         <div class="form-group">
-                           <textarea class="form-control "  rows="5" id="content" name="artikel">{!! $post->artikel !!}</textarea>
+                           <textarea class="form-control "   id="content" name="artikel">{!! $post->artikel !!}</textarea>
                             </div>
-                                                
+                        @error('artikel')
+                           {{$message}}
+                        @enderror                
                         <div class="mb-3 justify-center">
-                            <div class="mb-3"> <img src="{{asset('storage/gambar/'.$post->gambar)}}" alt="{{$post->gambar}}" id="image-preview"> </div>
-                            <label for="image" class="text-light form-label">Pilih Gambar</label>
-                            <input type="file" class="form-control" id="file-input" name="gambar" >
+                            <!-- <div class="mb-3"> <img src="{{asset('storage/gambar/'.$post->gambar)}}" alt="{{$post->gambar}}" id="image-preview"> </div> -->
+                            <!-- <label for="image" class="text-light form-label">Pilih Gambar</label> -->
+                            <input type="file" class="form-control" name="gambar" >
                         </div>
 
                         
                         <div class="send_btn">
-                        
-                        <button type="submit">SAVE</button>   
-                        
+                           <button type="submit">SAVE</button>   
                      </div>
                   </div>
                 </form>

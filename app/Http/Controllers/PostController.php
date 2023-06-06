@@ -62,8 +62,52 @@ class PostController extends Controller
         }
 
     }
-    public function edit($id){
-        $post = Posts::find($id);
+    public function edit(Posts $post){
         return view('post/edit', compact('post'));
     }
+
+    public function update(Request $request, Posts $post){
+        // dd($post->id);
+        
+    //    dd($request);
+        //jika ada file->gambar baru maka lanjut jalan ke sintak di bawah
+        if($request->hasFile('gambar')){
+            $this->validate($request,[
+                'judul' => 'required|min:5',
+                'artikel' => 'required|min:10',
+                'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            //jadi kita simpan dulu filenya yang baru
+            // dd('test');
+            $gambar = $request->file('gambar');
+            $gambar->storeAs('public/gambar',$gambar->hashName());
+            // dd($request->gambar);
+            //setelah disimpan maka hapus file yang lama dengan parameter $post
+            // dd($post->gambar);
+            Storage::delete('public/gambar'.$post->gambar);
+            
+        //setelah semua urusan file beres lalu langsung simpan data yang lainnya 
+        $post->update([
+            'gambar' => $gambar->hashName(),
+            'judul' => $request->judul,
+            'artikel' => $request->artikel,
+            
+        ]);
+        
+        }
+        else{
+            // dd('stop');
+            $this->validate($request,[
+                'judul' => 'required|min:5',
+                'artikel' => 'required|min:10',
+            ]);
+        $post->update([
+            'judul' => $request->judul,
+            'artikel' => $request->artikel
+            ]);
+        }
+        // dd('is here');
+        return redirect()->route('post.index')->with(['success' => 'Data Berhasil di Update!']);
+    }
+    
 }
