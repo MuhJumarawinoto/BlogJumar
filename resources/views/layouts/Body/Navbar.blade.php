@@ -8,10 +8,10 @@
                <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav ml-auto">
                      <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="{{route('post.index')}}">Home</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="about.html">About Us</a>
+                        <a class="nav-link" href="{{route('post.create')}}">Post</a>
                      </li>
                      <li class="nav-item">
                         <a class="nav-link" href="gallery.html">Gallery</a>
