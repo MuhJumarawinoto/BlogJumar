@@ -34,10 +34,16 @@
                             <input type="file" class="form-control" name="gambar" >
                         </div>
 
-                        
-                        <div class="send_btn">
-                           <button type="submit">SAVE</button>   
-                     </div>
+                        <button type="submit" style="margin: 0 auto;
+                                                   text-align: center;
+                                                   font-size: 16px;
+                                                   color: #ffffff;
+                                                   background-color: #d33a11;
+                                                   padding: 15px 50px 12px 50px;
+                                                   border-radius: 30px;
+                                                   display: block;">
+                                                   SAVE
+                                                </button>
                   </div>
                 </form>
                 </div>

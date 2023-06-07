@@ -109,5 +109,11 @@ class PostController extends Controller
         // dd('is here');
         return redirect()->route('post.index')->with(['success' => 'Data Berhasil di Update!']);
     }
+
+    public function delete(Posts $post){
+        Storage::delete('public/gambar/'.$post->gambar);
+        $post->delete();
+        return redirect()->route('post.index')->with(['success'=>'Data telah di Hapus!']);
+    }
     
 }

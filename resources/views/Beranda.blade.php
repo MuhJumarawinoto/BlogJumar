@@ -18,7 +18,13 @@
                      <div class="about_taital">{{$post->judul}}</div>
                      <p class="about_text">{!! $post->artikel !!}</p>             
                      <div class="read_bt"><a href="{{route('post.edit', $post->id)}}">Read More</a></div>
+                     <div class="read-bt"><form action="{{route('post.delete', $post->id)}}" method="POST">  
+                     @csrf
+                     @method('DELETE')
+                     <button type="submit">Hapus</button>
                   </div>
+                  </div>
+                  </form>
                </div>
                <div class="col-md-6">
                   <div class="about_img"><img src="{{asset('storage/gambar/'.$post->gambar)}}" alt="{{$post->gambar}}"></div>

@@ -21,3 +21,4 @@ Route::post('/post',[PostController::class,'store'])->name('post.store');
 Route::get('/post/{post}/edit',[PostController::class, 'edit'])->name('post.edit');
 // Route::patch('',[PostController::class,'update'])->name('post.update');
 Route::match(['put', 'patch'], '/post/{post}', [PostController::class, 'update'])->name('post.update');
+Route::delete('post/{post}',[PostController::class, 'delete'])->name('post.delete');
