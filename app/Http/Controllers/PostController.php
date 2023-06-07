@@ -13,8 +13,9 @@ class PostController extends Controller
     public function index()
     {
         $posts = Posts::paginate(2);
-        // dd($item);
-        return view('beranda',compact('posts'));
+        $banner= Posts::latest()->paginate(1);
+        // dd($banner);
+        return view('beranda',compact('posts','banner'));
         
     }
 
@@ -114,6 +115,11 @@ class PostController extends Controller
         Storage::delete('public/gambar/'.$post->gambar);
         $post->delete();
         return redirect()->route('post.index')->with(['success'=>'Data telah di Hapus!']);
+    }
+
+    public function banner(){
+        $post = Posts::paginate(2);
+        return redirect()->route('post.index',compact('post'));
     }
     
 }

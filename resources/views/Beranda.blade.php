@@ -6,9 +6,11 @@
         {{ session('success') }}
     </div>
     @endif
-     @include('layouts.Body.Navbar')
-     @include('layouts.Body.Banner')
+    @include('layouts.Body.Navbar')
+    @include('layouts.Body.Banner')
     
+   
+   
     @forelse ($posts as $post)
     <div class="about_section layout_padding">
          <div class="container">
@@ -50,6 +52,7 @@
          <div class="container p-4">
             <div class="row justify-content-center">
             {{ $posts->links() }}
+            
             </div>   
          </div>
     </div>
