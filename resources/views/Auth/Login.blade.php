@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+
 <style>
     .divider:after,
 .divider:before {
@@ -17,7 +18,27 @@ height: 1px;
 background: #eee;
 }
 </style>
+<div class="card-body">
+@if(session('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          Register berhasil!
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
 
+      @if(session('error'))
+            <div class="alert alert-danger">
+                <b>Opps!</b> {{session('error')}}
+            </div>
+            @endif
+</div>
 <section class="vh-100">
   <div class="container py-5 h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
@@ -26,18 +47,30 @@ background: #eee;
           class="img-fluid" alt="Phone image">
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-        <form>
+        <form action="{{route('auth.check')}} " method="POST">
+          @csrf
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="email" id="form1Example13" class="form-control form-control-lg" />
+            <input type="email" id="form1Example13" name="email" class="form-control form-control-lg" />
             <label class="form-label" for="form1Example13">Email address</label>
           </div>
+          @error('email')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
 
+          
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="form1Example23" class="form-control form-control-lg" />
+            <input type="password" name="password" id="form1Example23" class="form-control form-control-lg" />
             <label class="form-label" for="form1Example23">Password</label>
           </div>
+          @error('email')
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
 
           <div class="d-flex justify-content-around align-items-center mb-4">
             <!-- Checkbox -->

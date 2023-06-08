@@ -35,6 +35,21 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
   style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
+ 
+      @if(session('errors'))
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Something is wrong:
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        <ul>
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
+
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
           <div class="card" style="border-radius: 15px;">
@@ -44,23 +59,36 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
               <form action="{{ route('auth.tambah')}}" method="POST">
                 @csrf
                 <div class="form-outline mb-4">
-                  <input type="text" id="form3Example1cg" name="name" class="form-control form-control-lg" />
+                  <input type="text" id="form3Example1cg"  name="name" value="{{ old('name') }}" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example1cg">Your Name</label>
+                  @error('name')
+                      {{$message}}
+                  @enderror
+
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" name="email" class="form-control form-control-lg" />
+                  <input type="email" id="form3Example3cg" name="email" value="{{ old('email') }}" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example3cg">Your Email</label>
+                  @error('email')
+                      {{$message}}
+                  @enderror
                 </div>
 
                 <div class="form-outline mb-4">
                   <input type="password" id="form3Example4cg" name="password"class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example4cg">Password</label>
+                  @error('password')
+                      {{$message}}
+                  @enderror
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
+                  <input type="password" id="form3Example4cdg" name="password_confirmation" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                  @error('password')
+                      {{$message}}
+                  @enderror
                 </div>
 
                 <!-- <div class="form-check d-flex justify-content-center mb-5">

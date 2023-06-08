@@ -19,14 +19,17 @@
                      <li class="nav-item">
                         <a class="nav-link" href="services.html">Services</a>
                      </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
+                     
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           {{Auth::user()->name}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                           <a class="dropdown-item" href="{{route('auth.logout')}}">Logout</a>
+                        </div>
                      </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                     </li>
-                  </ul>
                </div>
+               
             </nav>
          </div>
       </div>
