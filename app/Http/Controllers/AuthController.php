@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
   
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Auth\Events\Validated;
@@ -78,8 +79,11 @@ class AuthController extends Controller
             $user->name = ucwords(strtolower($request->name));
             $user->email = strtolower($request->email);
             $user->password = Hash::make($request->password);
-            $simpan = $user->save();
             
+            $simpan = $user->save();
+            $user->roles()->attach(Role::where('name','user')->first());
+
+            // dd($user);
             if($simpan){
                 Session::flash('success', 'Register berhasil! Silahkan login untuk mengakses data');
                 return redirect()->route('auth.login');

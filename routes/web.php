@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\UserRole;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +33,26 @@ Route::post('actionlogin',[AuthController::class,'check'])->name('auth.check');
 Route::get('/auth/register',[AuthController::class,'register'])->name('auth.register');
 Route::post('/auth/tambah',[AuthController::class,'daftar'])->name('auth.tambah');
 Route::get('/auth/logout',[AuthController::class,'logout'])->name('auth.logout');
+
+// Route::middleware(['auth', 'role:admin'])->group(function () {
+//         Route::get('/admin-index',[AdminController::class,'index'])->name('admin.index');
+// });
+
+Route::get('/dash', function () {
+        // dd(auth()->user()->UserRole);
+        //  dd(auth()->user()->role->user);
+        $roles=(auth()->user()->role->name);
+        // dd($roles);
+
+        if ($roles === 'user') {
+            // Akses diberikan hanya untuk pengguna dengan peran admin
+            return 'Dashboard User';
+        } elseif ($roles === 'admin') {
+            // Akses diberikan hanya untuk pengguna dengan peran admin
+            return 'Dashboard Admin';
+        }
+        else {
+            // Jika tidak memenuhi kondisi, berikan pesan Unauthorized
+            abort(403, 'Unauthorized');
+        }
+    })->middleware('auth');
